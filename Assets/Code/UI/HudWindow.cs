@@ -52,7 +52,7 @@ namespace Code.UI
 		{
 			if (_experienceService != null)
 			{
-				_levelText.text = $"{_experienceService.CurrentLevel}";
+				_levelText.text = $"{_experienceService.CurrentLevel-1}";
 			}
 			else
 			{
