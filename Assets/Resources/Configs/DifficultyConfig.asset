@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd6c1969ba264707b4617337ec53a28, type: 3}
+  m_Name: DifficultyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyConfig
+  Stages:
+  - Duration: 60
+    HpGrowthRate: 0.01
+    DamageGrowthRate: 0.008
+    BossSpawnChance: 0.2
+    WalkerSpawnChance: 0.2
+    SkeletonSpawnChance: 0.2
+    SkeletonWalkerSpawnChance: 0.152
+  - Duration: 120
+    HpGrowthRate: 0.02
+    DamageGrowthRate: 0.015
+    BossSpawnChance: 0.1
+    WalkerSpawnChance: 0.4
+    SkeletonSpawnChance: 0.3
+    SkeletonWalkerSpawnChance: 0
+  - Duration: 30
+    HpGrowthRate: 0.05
+    DamageGrowthRate: 0.03
+    BossSpawnChance: 0.15
+    WalkerSpawnChance: 0.2
+    SkeletonSpawnChance: 0.3
+    SkeletonWalkerSpawnChance: 0
+  BossRespawnCooldown: 12
+  SpawnIntervalReductionRate: 1
