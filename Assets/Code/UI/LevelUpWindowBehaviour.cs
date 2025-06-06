@@ -64,7 +64,7 @@ namespace Code.Gameplay.Abilities.Behaviours
             
 
           if (levelUpEffectText != null)
-                levelUpEffectText.text = $"{_displayedLevel + 1}";
+                levelUpEffectText.text = $"{_displayedLevel}";
             Time.timeScale = 0f;
             _isHueLoopActive = true;
 
