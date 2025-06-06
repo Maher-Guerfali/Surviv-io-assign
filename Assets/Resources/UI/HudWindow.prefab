@@ -568,7 +568,7 @@ MonoBehaviour:
   levelUpEffectImage: {fileID: 3725921242452405157}
   levelUpEffectText: {fileID: 3399099327474526217}
   hueLoopSpeed: 2
-  levelDisplayText: {fileID: 0}
+  levelDisplayText: {fileID: 3399099327474526217}
 --- !u!1 &2219024170678142526
 GameObject:
   m_ObjectHideFlags: 0

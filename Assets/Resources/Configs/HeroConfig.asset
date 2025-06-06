@@ -17,9 +17,9 @@ MonoBehaviour:
   MovementSpeed: 5
   ProjectileSpeed: 10
   GunRotationSpeed: 5
-  Damage: 50
+  Damage: 10
   VisionRange: 10
   ShootCooldown: 1
   StartingXP: 0
   XPRequiredPerLevel: 10
-  StartingLevel: 1
+  StartingLevel: 0

@@ -68,7 +68,7 @@ namespace Code.UI
 				var fill = _xpBar.fillRect.GetComponent<Image>();
 				if (fill != null)
 				{
-					fill.color = Color.Lerp(Color.green, Color.red, xpRatio);
+					fill.color = Color.Lerp(Color.cadetBlue, Color.darkSeaGreen, xpRatio);
 				}
 			}
 			else
