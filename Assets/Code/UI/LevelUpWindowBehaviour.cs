@@ -24,7 +24,6 @@ namespace Code.Gameplay.Abilities.Behaviours
         private bool _isHueLoopActive = false;
         private int _displayedLevel;
 
-        [SerializeField] private Text levelDisplayText; // Add this for showing level number
 
         private int _levelToDisplay;
 
@@ -46,7 +45,7 @@ namespace Code.Gameplay.Abilities.Behaviours
 
         private void OnLevelUp(int newLevel)
         {
-            _displayedLevel = newLevel;
+            _displayedLevel = newLevel-1;
             Show();
         }
 

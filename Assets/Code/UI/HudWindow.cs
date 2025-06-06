@@ -33,6 +33,7 @@ namespace Code.UI
 			UpdateKilledEnemiesText();
 			UpdateXPBar();
 			UpdateLevelText(); // Update level display
+			Debug.Log(_experienceService.CurrentLevel);
 		}
 
 		private void UpdateKilledEnemiesText()
