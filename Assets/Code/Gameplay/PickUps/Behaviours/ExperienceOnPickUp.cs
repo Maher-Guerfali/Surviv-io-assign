@@ -1,5 +1,5 @@
 
-    using Code.Gameplay.Characters.Heroes.Services;
+using Code.Gameplay.Characters.Heroes.Services;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +8,7 @@ namespace Code.Gameplay.PickUps.Behaviours
 	[RequireComponent(typeof(PickUp))]
 	public class ExperienceOnPickUp : MonoBehaviour
 	{
-		[SerializeField] private int _xpAmount = 1;
+		[SerializeField] private int _xpAmountt = 1;
 
 		private PickUp _pickUp;
 		private IExperienceService _xpService;
@@ -36,7 +36,8 @@ namespace Code.Gameplay.PickUps.Behaviours
 
 		private void HandlePickup(GameObject pickUpper)
 		{
-			_xpService.AddExperience(_xpAmount);
+			Debug.Log("XP Gained: " + _xpAmountt);
+			_xpService.AddExperience(1);
 		}
 	}
 }

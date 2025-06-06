@@ -29,24 +29,37 @@ namespace Code.Gameplay.Characters.Heroes.Services
             _heroProvider.Stats.SetBaseStat(StatType.RequiredXP, XP_PER_LEVEL);
         }
 
+        // 6/6/2025 AI-Tag
+        // This was created with the help of Assistant, a Unity Artificial Intelligence product.
+
+        // 6/7/2025 AI-Tag
+        // This was created with the help of Assistant, a Unity Artificial Intelligence product.
+
         public void AddExperience(float amount)
         {
-            if (_heroProvider.Stats == null || _levelUpPending) return;
+            Debug.Log($"Before XP: {CurrentXP}, Adding: {amount}");
+
+            if (_heroProvider.Stats == null) return;
 
             float newXP = CurrentXP + amount;
-            newXP = Mathf.Clamp(newXP, 0f, XP_PER_LEVEL); // Ensures XP never goes above 10
 
+            while (newXP >= XP_PER_LEVEL)
+            {
+                newXP -= XP_PER_LEVEL; // Subtract the XP required for the current level
+                _nextLevel = CurrentLevel + 1;
+
+                // Trigger level-up event
+                OnLevelUp?.Invoke(_nextLevel);
+
+                // Update the level
+                _heroProvider.Stats.SetBaseStat(StatType.Level, _nextLevel);
+            }
+
+            // Update XP after all level-ups are processed
             _heroProvider.Stats.SetBaseStat(StatType.CurrentXP, newXP);
             OnXPChanged?.Invoke(newXP, XP_PER_LEVEL);
 
-            if (newXP >= XP_PER_LEVEL)
-            {
-                _levelUpPending = true;
-                _nextLevel = CurrentLevel + 1;
-
-                Time.timeScale = 0f;
-                OnLevelUp?.Invoke(_nextLevel);
-            }
+            Debug.Log($"New XP: {newXP}");
         }
 
         public void ConfirmLevelUp()

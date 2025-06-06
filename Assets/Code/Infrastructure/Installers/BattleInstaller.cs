@@ -24,11 +24,7 @@ namespace Code.Infrastructure.Installers
             BindAbilityServices();
         }
 
-        // 6/6/2025 AI-Tag
-        // This was created with the help of Assistant, a Unity Artificial Intelligence product.
 
-        // 6/6/2025 AI-Tag
-        // This was created with the help of Assistant, a Unity Artificial Intelligence product.
 
         private void BindHeroServices()
         {

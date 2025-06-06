@@ -22,4 +22,4 @@ MonoBehaviour:
   ShootCooldown: 1
   StartingXP: 0
   XPRequiredPerLevel: 10
-  StartingLevel: 0
+  StartingLevel: 1

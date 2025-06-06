@@ -1,7 +1,7 @@
 using UnityEngine;
 using Code.Gameplay.Abilities.Configs;
 using Code.Gameplay.Abilities.Services;
-using Code.Gameplay.Characters.Heroes.Services; // For IExperienceService
+using Code.Gameplay.Characters.Heroes.Services;
 using System.Collections.Generic;
 using Zenject;
 using UnityEngine.UI;
@@ -45,8 +45,9 @@ namespace Code.Gameplay.Abilities.Behaviours
 
         private void OnLevelUp(int newLevel)
         {
-            _displayedLevel = newLevel-1;
+            _displayedLevel = newLevel;
             Show();
+            Debug.LogError("Maherigned!");
         }
 
         public void Show()
@@ -63,7 +64,7 @@ namespace Code.Gameplay.Abilities.Behaviours
             
 
           if (levelUpEffectText != null)
-                levelUpEffectText.text = $"{_displayedLevel}";
+                levelUpEffectText.text = $"{_displayedLevel} maher";
             Time.timeScale = 0f;
             _isHueLoopActive = true;
 
