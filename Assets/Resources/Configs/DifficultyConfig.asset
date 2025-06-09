@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd6c1969ba264707b4617337ec53a28, type: 3}
+  m_Name: DifficultyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyConfig
+  _scalePerSecond: 0
+  _scalePerLevel: 1
+  _timeIntervalSeconds: 5
+  _hpIncreasePerInterval: 100
+  _damageIncreasePerInterval: 500
+  _hpIncreasePerLevel: 600
+  _damageIncreasePerLevel: 900
+  _walkerSpawnChance: 70
+  _skeletonSpawnChance: 36
+  _bossSpawnChance: 67
+  _bossSpawnCooldown: 30
+  _spawnIntervalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1.853157
+      value: 2.9914246
+      inSlope: -0.006697807
+      outSlope: -0.006697807
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 299.178
+      value: 1
+      inSlope: -0.006697807
+      outSlope: -0.006697807
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _designerNotes: 'DIFFICULTY SCALING MODES:
+
+
+    TIME-BASED (scalePerSecond = true):
+
+    -
+    Every ''timeIntervalSeconds'', enemy HP and Damage increase
+
+    - HP increases
+    by ''hpIncreasePerInterval''
+
+    - Damage increases by ''damageIncreasePerInterval''
+
+
+    LEVEL-BASED
+    (scalePerLevel = true):
+
+    - Every time player levels up, enemy HP and Damage
+    increase
+
+    - HP increases by ''hpIncreasePerLevel''
+
+    - Damage increases
+    by ''damageIncreasePerLevel''
+
+
+    You can enable both modes simultaneously
+    for compound scaling.'
+  _debugElapsedTime: 8.536083
+  _debugPlayerLevel: 1
+  _debugHpMultiplier: 1
+  _debugDamageMultiplier: 1
+  _debugWalkerChance: 70
+  _debugSkeletonChance: 36
+  _debugBossChance: 67
