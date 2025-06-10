@@ -39,27 +39,42 @@ namespace Code.Gameplay.UnitStats.Behaviours.Editor
 
 			EditorGUI.BeginChangeCheck();
 
-			foreach (StatType statType in Enum.GetValues(typeof(StatType)))
-			{
-				if (statType == StatType.Unknown) continue;
+            foreach (StatType statType in Enum.GetValues(typeof(StatType)))
+            {
+                if (statType == StatType.Unknown) continue;
 
-				if (_baseStats.TryGetValue(statType, out float currentValue))
-				{
-					float newValue = EditorGUILayout.FloatField(statType.ToString(), currentValue);
+                if (_baseStats.TryGetValue(statType, out float baseValue))
+                {
+                    float modifiers = _stats.GetStatModifiersValue(statType);
+                    float finalValue = _stats.GetStat(statType);
 
-					if (!Mathf.Approximately(newValue, currentValue))
-					{
-						_stats.SetBaseStat(statType, newValue);
-						EditorUtility.SetDirty(_stats);
-					}
-				}
-				else
-				{
-					EditorGUILayout.LabelField($"{statType}: Not initialized in _baseStats");
-				}
-			}
+                    EditorGUILayout.BeginHorizontal();
 
-			if (EditorGUI.EndChangeCheck())
+                    // Base value (editable)
+                    float newBaseValue = EditorGUILayout.FloatField(statType.ToString(), baseValue, GUILayout.Width(150));
+
+                    if (!Mathf.Approximately(newBaseValue, baseValue))
+                    {
+                        _stats.SetBaseStat(statType, newBaseValue);
+                        EditorUtility.SetDirty(_stats);
+                    }
+
+                    // Modifiers (read-only)
+                    EditorGUILayout.LabelField($"Modifiers: {modifiers:+0.##;-0.##;0}", GUILayout.Width(100));
+
+                    // Final Value (read-only)
+                    EditorGUILayout.LabelField($"Total: {finalValue:0.##}", GUILayout.Width(100));
+
+                    EditorGUILayout.EndHorizontal();
+                }
+                else
+                {
+                    EditorGUILayout.LabelField($"{statType}: Not initialized in _baseStats");
+                }
+            }
+
+
+            if (EditorGUI.EndChangeCheck())
 			{
 				_baseStats = (Dictionary<StatType, float>) _baseStatsField.GetValue(_stats);
 			}

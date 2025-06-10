@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 9164090346286107046}
   - component: {fileID: 5828061697808690353}
   - component: {fileID: 6565643171581123326}
-  - component: {fileID: 6897819920250231813}
   - component: {fileID: 680967348148917855}
   m_Layer: 0
   m_Name: Projectile
@@ -129,6 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ecf43d534c4d69a5ab8a10821194f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bounceRadius: 5
+  _destroyDelay: 0.1
 --- !u!114 &4115757792629618361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,19 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b7a87512db45de901dc7f927243bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6897819920250231813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2563574225374564795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4c5b7166f04c25a535479896483eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _delay: 0
 --- !u!114 &680967348148917855
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,20 +12,32 @@ using Unity.VisualScripting;
 
 namespace Code.Gameplay.Abilities.Behaviours
 {
+    /// <summary>
+    /// Manages the Level Up window.
+    /// Responsible for showing random ability cards and applying selected abilities to the Hero.
+    /// The cards will be spawned under the HudWindow's LevelUpCardsParent.
+    /// Pauses the game while the window is active.
+    /// </summary>
     public class LevelUpWindowBehaviour : MonoBehaviour
     {
+        [Header("Settings")]
         [SerializeField] private GameObject cardPrefab;
         [SerializeField] private int cardsToShow = 3;
 
         private IAbilityService _abilityService;
         private IHeroProvider _heroProvider;
         private AbilityDatabase _abilityDatabase;
-        private HudWindow _hudWindow; // Inject HudWindow to get cards parent
+        private HudWindow _hudWindow; // Used to access LevelUpCardsParent
         private List<AbilityCardBehaviour> _currentCards = new();
 
-        // Get cards parent from HudWindow
+        /// <summary>
+        /// Cached reference to the LevelUpCardsParent in the HUD window.
+        /// </summary>
         private Transform CardsParent => _hudWindow?.LevelUpCardsParent;
 
+        /// <summary>
+        /// Inject dependencies.
+        /// </summary>
         [Inject]
         public void Construct(IAbilityService abilityService, IHeroProvider heroProvider, AbilityDatabase abilityDatabase, HudWindow hudWindow)
         {
@@ -34,6 +47,10 @@ namespace Code.Gameplay.Abilities.Behaviours
             _hudWindow = hudWindow;
         }
 
+        /// <summary>
+        /// Public entry point to show the Level Up window.
+        /// Pauses the game and generates random ability cards.
+        /// </summary>
         public void ShowLevelUpWindow()
         {
             gameObject.SetActive(true);
@@ -43,6 +60,9 @@ namespace Code.Gameplay.Abilities.Behaviours
             GenerateRandomCards();
         }
 
+        /// <summary>
+        /// Destroys existing cards and clears the list.
+        /// </summary>
         private void ClearCards()
         {
             foreach (var card in _currentCards)
@@ -53,6 +73,11 @@ namespace Code.Gameplay.Abilities.Behaviours
             _currentCards.Clear();
         }
 
+        /// <summary>
+        /// Generates and displays random ability cards.
+        /// Filters out abilities the Hero already maxed out.
+        /// Ensures no duplicate abilities in a single display.
+        /// </summary>
         private void GenerateRandomCards()
         {
             if (CardsParent == null)
@@ -62,7 +87,7 @@ namespace Code.Gameplay.Abilities.Behaviours
                 return;
             }
 
-            // Filter valid abilities
+            // Filter abilities that can still be stacked
             var validAbilities = _abilityDatabase.Abilities
                 .Where(ability =>
                 {
@@ -74,19 +99,19 @@ namespace Code.Gameplay.Abilities.Behaviours
 
             if (validAbilities.Count == 0)
             {
-                Debug.LogWarning("No available abilities to show!");
+                Debug.LogWarning("[LevelUpWindow] No available abilities to show!");
                 HideLevelUpWindow();
                 return;
             }
 
-            // Shuffle and pick unique random ones
+            // Randomly select abilities
             var selectedAbilities = new List<AbilityConfig>();
             while (selectedAbilities.Count < cardsToShow && validAbilities.Count > 0)
             {
                 var index = Random.Range(0, validAbilities.Count);
                 var picked = validAbilities[index];
                 selectedAbilities.Add(picked);
-                validAbilities.RemoveAt(index); // Prevent duplicates
+                validAbilities.RemoveAt(index); // Avoid duplicates
             }
 
             foreach (var ability in selectedAbilities)
@@ -95,7 +120,9 @@ namespace Code.Gameplay.Abilities.Behaviours
             }
         }
 
-
+        /// <summary>
+        /// Instantiates an ability card and sets it up.
+        /// </summary>
         private void CreateCard(AbilityConfig abilityConfig)
         {
             GameObject cardObj = Instantiate(cardPrefab, CardsParent);
@@ -105,11 +132,14 @@ namespace Code.Gameplay.Abilities.Behaviours
             _currentCards.Add(card);
         }
 
+        /// <summary>
+        /// Callback for when an ability card is selected by the player.
+        /// Applies the ability to the Hero and closes the window.
+        /// </summary>
         private void OnCardSelected(AbilityConfig selectedAbility)
         {
             Debug.Log($"[LevelUpWindow] Player selected: {selectedAbility.Type}");
 
-            // Get the hero's stats from the provider
             Stats heroStats = _heroProvider.Stats;
             if (heroStats == null)
             {
@@ -117,13 +147,11 @@ namespace Code.Gameplay.Abilities.Behaviours
                 return;
             }
 
-            // Apply the ability using the injected service and stats
             if (_abilityService.CanApply(selectedAbility))
             {
                 _abilityService.ApplyAbility(selectedAbility, heroStats);
                 Debug.Log($"[LevelUpWindow] Successfully applied: {selectedAbility.Type}");
 
-                // Debug: Show current stat values
                 DebugCurrentStats(selectedAbility, heroStats);
             }
             else
@@ -134,9 +162,11 @@ namespace Code.Gameplay.Abilities.Behaviours
             HideLevelUpWindow();
         }
 
+        /// <summary>
+        /// Logs the new value and modifiers of the affected stat after applying an ability.
+        /// </summary>
         private void DebugCurrentStats(AbilityConfig appliedAbility, Stats heroStats)
         {
-            // Show the affected stat's new value
             var statType = GetStatTypeForAbility(appliedAbility.Type);
             if (statType != Code.Gameplay.UnitStats.StatType.Unknown)
             {
@@ -146,6 +176,9 @@ namespace Code.Gameplay.Abilities.Behaviours
             }
         }
 
+        /// <summary>
+        /// Maps AbilityType to the corresponding StatType.
+        /// </summary>
         private Code.Gameplay.UnitStats.StatType GetStatTypeForAbility(AbilityType abilityType)
         {
             return abilityType switch
@@ -161,6 +194,10 @@ namespace Code.Gameplay.Abilities.Behaviours
             };
         }
 
+        /// <summary>
+        /// Hides the Level Up window and resumes the game.
+        /// Clears any displayed cards.
+        /// </summary>
         private void HideLevelUpWindow()
         {
             gameObject.SetActive(false);

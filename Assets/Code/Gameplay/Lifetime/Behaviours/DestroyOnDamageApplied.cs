@@ -1,3 +1,5 @@
+﻿using Code.Gameplay.UnitStats;
+using Code.Gameplay.UnitStats.Behaviours;
 using UnityEngine;
 
 namespace Code.Gameplay.Lifetime.Behaviours
@@ -24,9 +26,29 @@ namespace Code.Gameplay.Lifetime.Behaviours
 			_damageApplier.OnDamageApplied -= HandleDamageApplied;
 		}
 
-		private void HandleDamageApplied(Health _)
-		{
-			Destroy(gameObject, _delay);
-		}
-	}
+        private void HandleDamageApplied(Health _)
+        {
+            var projectile = GetComponent<Code.Gameplay.Projectiles.Behaviours.Projectile>();
+
+            if (projectile != null)
+            {
+                float piercingValue = projectile.GetComponent<Stats>().GetStat(StatType.Piercing);
+
+                if (piercingValue <= 0)
+                {
+                    Destroy(gameObject, _delay);
+                }
+                else
+                {
+                    // Do NOT destroy — projectile will handle its own destruction
+                }
+            }
+            else
+            {
+                // Not a projectile → fallback to default behavior
+                Destroy(gameObject, _delay);
+            }
+        }
+
+    }
 }
