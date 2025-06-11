@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounceRadius: 5
-  _destroyDelay: 0.1
+  _destroyDelay: 2
 --- !u!114 &4115757792629618361
 MonoBehaviour:
   m_ObjectHideFlags: 0
